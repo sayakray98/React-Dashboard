@@ -1,0 +1,535 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Jost", serif;
+
+
+
+
+}
+
+body {
+    background: rgb(42, 52, 71);
+}
+
+
+
+html::-webkit-scrollbar {
+    display: none;
+
+}
+
+
+
+
+html.dark-mode h6,
+body.dark-mode h6 {
+    color: rgb(0, 0, 0);
+}
+
+html.dark-mode p,
+body.dark-mode p {
+    color: rgb(0, 0, 0);
+}
+
+html.dark-mode .menuslists,
+body.dark-mode .menuslists {
+    background: white;
+}
+
+html.dark-mode .usersigninmain,
+body.dark-mode .usersigninmain {
+    background: white;
+}
+
+html.dark-mode .popupbox.show,
+body.dark-mode .popupbox.show {
+    background: white !important;
+    border: 0px;
+    box-shadow: none;
+}
+
+html.dark-mode .cardsseconddata,
+body.dark-mode .cardsseconddata {
+    color: rgb(0, 0, 0);
+}
+
+html.dark-mode a,
+body.dark-mode a {
+    color: rgb(0, 0, 0);
+}
+
+html.dark-mode .show,
+body.dark-mode .show {
+    color: white;
+
+}
+
+html.dark-mode .navbar-brand,
+body.dark-mode .navbar-brand {
+    color: white;
+
+}
+
+html.dark-mode .menuslists li:last-child a,
+body.dark-mode .menuslists li:last-child a {
+    color: black !important;
+}
+
+html.dark-mode .navsecond,
+body.dark-mode .navfirst {
+    background-color: white;
+    color: black !important;
+}
+
+html.dark-mode .navsecond .navbar-brand,
+body.dark-mode .navfirst .navbar-brand {
+    background-color: white;
+    color: black !important;
+}
+
+html.dark-mode .navsecond i,
+body.dark-mode .navfirst i {
+    background-color: white;
+    color: black !important;
+}
+
+html.dark-mode .chartsdata .cmode,
+body.dark-mode .chartsdata .cmode {
+
+    color: black !important;
+}
+
+
+
+
+
+html.dark-mode,
+body.dark-mode {
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+
+html.dark-mode .toggler-icon,
+body.dark-mode .toggler-icon {
+    background: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+}
+
+
+.navfirst {
+    padding: 20px;
+    background: rgb(42, 52, 71);
+    color: white;
+
+    position: fixed;
+    left: 0;
+    top: 0px;
+    z-index: 999;
+    width: 16.12%;
+}
+
+.navsecond {
+
+    background: rgb(42, 52, 71);
+    border-bottom: 1px solid rgb(152, 152, 152);
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+
+}
+
+.usersignin {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 12px;
+    color: white;
+    text-align: left;
+    border: 1px solid rgb(104, 104, 104);
+    width: 15%;
+    margin: auto;
+    background: rgb(42, 52, 71);
+    border-radius: 4px;
+    box-shadow: 0px 0px 10px -1px #00000066;
+    position: fixed;
+    /* width: 85%; */
+    left: 5px;
+    /* top: 60px; */
+    bottom: 16px;
+    transition: all 0.2s;
+}
+
+.usersignin button {
+    background: rgb(42, 52, 71);
+}
+
+
+.usersignin i {
+    color: white;
+}
+
+.navfirst i {
+    cursor: pointer;
+}
+
+.menuslists {
+
+    background: rgb(42, 52, 71);
+    text-align: left;
+    height: 40rem;
+    overflow: hidden;
+
+
+}
+
+.menuslistsnew {
+
+    background: rgb(42, 52, 71);
+    text-align: left;
+    height: 40rem;
+    overflow: hidden;
+
+
+}
+
+.navbarfirstallmenus {
+    position: relative;
+    padding-top: 56px;
+
+}
+
+.navbarfirstallmenusnew {
+    position: relative;
+    padding-top: 56px;
+
+}
+
+.linetag {
+    position: relative;
+}
+
+
+.linetag::before {
+    content: "";
+    position: absolute;
+    height: 1000px;
+    background: rgb(152, 152, 152);
+    width: 1px;
+    right: 0;
+    top: -36px;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+
+.menuslists li:nth-child(n) {
+    list-style: none;
+
+    margin-top: 25px;
+    padding-left: 25px;
+}
+
+.menuslists li a:nth-child(n) {
+    color: white;
+}
+
+.navsecond a {
+    color: white;
+    padding-left: 10rem;
+}
+
+.navsecond a:hover {
+    color: white;
+}
+
+.popmainboxcol {
+    padding: 20px;
+    background: white;
+    height: 14rem;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 99999999;
+    width: fit-content;
+    height: 100%;
+    bottom: 35%;
+    border: 2px solid #847f7e;
+    box-shadow: 0px 0px 10px 5px #00000066;
+
+}
+
+.popmainboxcol h6 {
+    margin-top: 40px;
+}
+
+.popmainboxcol i {
+    color: rgba(255, 255, 255, 0.929);
+    font-size: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -3mm !important;
+    padding: 5px;
+    background: rgba(165, 4, 4, 0.929);
+    border-radius: 50px;
+    box-shadow: 0px 4px 12px 0px #8e8e8e;
+}
+
+.popupel {
+    opacity: 0;
+    transform: translateY(-900px);
+    /* Start higher */
+    visibility: hidden;
+    transition: opacity 0.59s ease-in-out, transform 0.59s ease-in-out;
+}
+
+.popupel.show {
+    opacity: 1;
+    transform: translateY(-300px);
+    /* Move to normal position */
+    visibility: visible;
+    position: fixed;
+    width: 100%;
+}
+
+body.overlay-active {
+    overflow: hidden;
+}
+
+/* Overlay Background (Covers Entire Page) */
+html.overlay-active::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black */
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+    z-index: 999;
+    /* Ensures it stays on top */
+}
+
+
+.navsecond span {
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+    margin-right: 18%;
+}
+
+.usersigninmain {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 12px;
+    color: white;
+    text-align: left;
+    border: 0px solid rgb(104, 104, 104);
+
+    margin: auto;
+    border-radius: 4px;
+    position: fixed;
+    /* width: 85%; */
+    left: 5px;
+    /* top: 60px; */
+    bottom: 16px;
+    flex-direction: column;
+    width: 5%;
+    margin-left: 1%;
+    transition: all 0.2s;
+
+
+    img {
+        display: none;
+        transition: all 0.2s;
+    }
+
+    .usersignindetails {
+        display: none;
+        transition: all 0.2s;
+    }
+
+    .btnnew {
+        border-radius: 50px;
+        width: 100%;
+        padding: 13px;
+        box-shadow: 0px 0px 16px 4px #00000066;
+    }
+
+    .btnnew:hover {
+        background: #b90707d7;
+        border: 0px;
+
+        color: white;
+    }
+
+    .btnnew:focus {
+        background: #b90707d7;
+        border: 0px;
+
+        color: white;
+    }
+
+
+
+
+}
+
+.navsecond {
+
+    background: rgb(42, 52, 71);
+}
+
+.btnnewdata {
+
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+
+    /* .menuslists{
+        display: none;
+    } */
+    .barbar {
+        display: none;
+    }
+
+    .offcanvas {
+        position: fixed;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        max-width: 59%;
+        color: var(--bs-offcanvas-color);
+        visibility: hidden;
+        background-color: var(--bs-offcanvas-bg);
+        background-clip: padding-box;
+        outline: 0;
+        transition: var(--bs-offcanvas-transition);
+        z-index: 999999;
+    }
+
+    .navbarfirstallmenus {
+        display: none;
+    }
+
+    .navsecond a {
+        padding-left: 4rem;
+    }
+
+    .navsecond {
+        border: 0px solid;
+    }
+
+    .navsecond span {
+        margin-top: 8px;
+        margin-right: -28%;
+    }
+
+    .linetag::before {
+        background: transparent;
+    }
+
+    .navsecond {
+
+        background: rgb(42, 52, 71);
+    }
+
+    #root {
+        overflow: visible;
+    }
+
+    .btnnewdata {
+
+        margin-right: 4%;
+        border-radius: 50px;
+        background: transparent;
+        color: white;
+        display: block;
+    }
+
+    .usersigninmain {
+        display: none;
+    }
+
+    .popupel.show{
+        opacity: unset;
+        transform: none;
+        transition: all 0.3s ;
+    }
+    .popupel{
+        opacity: unset;
+        transform: none;
+        transition: all 0.3s ;
+    }
+
+    .popmainboxcol {
+        padding: 20px;
+        background: white;
+        height: 14rem;
+        border-radius: 6px;
+        position: absolute;
+        z-index: 99999999;
+        width: fit-content;
+        height: 100%;
+        bottom: 35%;
+        border: 2px solid #847f7e;
+        box-shadow: 0px 0px 10px 5px #00000066;
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+    
+    }
+
+}
+
+
+.navbar-toggler,
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
+    box-shadow: none;
+    border: 0;
+}
+
+.navbar-toggler {
+    position: relative;
+    top: 20px;
+}
+
+.navbar-toggler span {
+    padding: 0%;
+    margin: 0%;
+}
+
+.toggler-icon {
+    display: block;
+    position: absolute;
+    margin-top: 80px;
+    background: white;
+    width: 100%;
+    height: 2px;
+    left: 0;
+    opacity: 1;
+    z-index: 9999999999;
+}
+
+.navbar-toggler .middle-bar {
+    margin-top: 7px;
+}
+
+.navbar-toggler .bottom-bar {
+    margin-top: 14px;
+}
+
+.navbar-toggler .top-bar {
+    margin-top: -1px;
+}

@@ -1,0 +1,112 @@
+body {
+  background: rgb(42, 52, 71) ;
+}
+
+.login-container {
+  width: 300px;
+  padding: 40px;
+  background-color: #ffffff14;
+  border-radius: 8px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transform-style: preserve-3d;
+  transition: transform 0.5sease -in-out;
+  margin: auto;
+  /* height: 331px; */
+  margin-top: 18%;
+  margin-bottom: 18%;
+  overflow-y: hidden !important;
+  border: 1px solid white;
+}
+
+.login-container:hover {
+  transform: rotateY(15deg);
+}
+
+.login-container input[type='text'] {
+  background-color: transparent;
+  color: white !important;
+}
+
+.login-container input[type='password'] {
+  background-color: transparent;
+  color: white !important;
+}
+
+.login-container input::placeholder {
+  color: rgb(255, 255, 255);
+
+}
+
+.lottiedatafile {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+
+}
+
+
+
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+  font-size: 16px;
+}
+
+.form-group input:focus {
+  border-color: #007BFF;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #007BFF;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+
+.popmainboxcol{
+  padding: 20px;
+  background: white;
+  height: 14rem;
+  border-radius: 6px;
+
+}
+
+.popmainboxcol h6{
+  margin-top: 50px;
+}
+
+.popmainboxcol i {
+  color: rgba(255, 255, 255, 0.929);
+  font-size: 20px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 10mm;
+  padding: 5px;
+  background: rgba(165, 4, 4, 0.929);
+  border-radius: 50px;
+  box-shadow: 0px 4px 12px 0px #8e8e8e;
+}

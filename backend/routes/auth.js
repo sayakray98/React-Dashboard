@@ -167,16 +167,22 @@ router.get(
   "/google/callback",
   passport.authenticate("google", { session: false }),
   (req, res) => {
+    if (!req.user) {
+      return res.status(500).json({ error: "Google authentication failed" });
+    }
+
     const token = jwt.sign(
       { user: { id: req.user.id } },
       process.env.JWT_TOKEN,
       { expiresIn: "1d" }
     );
 
+    // ✅ Redirect to GitHub Pages using HashRouter
     res.redirect(
       "https://sayakray98.github.io/React-Dashboard/#/login?token=" + token
     );
   }
 );
+
 
 module.exports = router;

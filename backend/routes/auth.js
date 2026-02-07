@@ -160,15 +160,20 @@ router.get("/search/:key", fetchuser, async (req, res) => {
 /* ================= GOOGLE OAUTH ================= */
 router.get(
   "/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+  })
 );
 
 router.get(
   "/google/callback",
-  passport.authenticate("google", { session: false }),
+  passport.authenticate("google", {
+    session: false,
+    failureRedirect: "/api/google/failure",
+  }),
   (req, res) => {
     if (!req.user) {
-      return res.status(500).json({ error: "Google authentication failed" });
+      return res.status(500).json({ error: "Google auth failed" });
     }
 
     const token = jwt.sign(
@@ -177,12 +182,15 @@ router.get(
       { expiresIn: "1d" }
     );
 
-    // ✅ Redirect to GitHub Pages using HashRouter
-    res.redirect(
+    // ✅ GitHub Pages + HashRouter
+    return res.redirect(
       "https://sayakray98.github.io/React-Dashboard/#/login?token=" + token
     );
   }
 );
 
+router.get("/google/failure", (req, res) => {
+  res.status(401).json({ error: "Google authentication failed" });
+});
 
 module.exports = router;

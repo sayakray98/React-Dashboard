@@ -18,7 +18,7 @@ export default function Login() {
     setLoader(true);
 
     setTimeout(async () => {
-      await handleLogin(e, name, password);
+      await handleLogin(name, password);
       setLoader(false);
     }, 3000);
   };
@@ -59,9 +59,7 @@ export default function Login() {
           />
         </div>
 
-        <p style={{ fontSize: "10px", color: "#ff4343" }}>
-          {error || success}
-        </p>
+        <p style={{ fontSize: "10px", color: "#ff4343" }}>{error || success}</p>
 
         <button type="submit" className="submit-btn" disabled={loader}>
           {loader ? "Logging in..." : "Login"}

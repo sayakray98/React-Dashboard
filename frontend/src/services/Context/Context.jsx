@@ -48,7 +48,7 @@ export default function Context({ children }) {
     setError("");
 
     try {
-      const response = await api.post("/loginuser", {
+      const response = await api.post("/login", {
         name,
         password,
       });
@@ -72,7 +72,7 @@ export default function Context({ children }) {
 
         navigate("/header");
       } else {
-        throw new Error("Token missing");
+        throw new Error("Token not found");
       }
     } catch (err) {
       setError(

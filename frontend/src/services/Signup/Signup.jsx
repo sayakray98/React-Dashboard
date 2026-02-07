@@ -3,6 +3,7 @@ import { TextField, Button, Alert } from "@mui/material";
 import API from "../Api/Api";
 import "./Signup.css";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -128,7 +129,10 @@ const Signup = () => {
         </form>
 
         <div className="signup-footer">
-          Already have an account? <span>Login</span>
+          Already have an account?{" "}
+          <Link to="/login" className="auth-link">
+            Login
+          </Link>
         </div>
       </div>
     </div>

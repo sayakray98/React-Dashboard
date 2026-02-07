@@ -1,4 +1,4 @@
-import React, { useContext, useState,useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../Login/Login.css";
 import Lottie from "lottie-react";
 import { useNavigate, Link } from "react-router-dom";
@@ -11,7 +11,6 @@ export default function Login() {
   const [loader, setLoader] = useState(false);
 
   const navigate = useNavigate();
-  const { handleLogin, error, success } = useContext(Logincontext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,15 +22,18 @@ export default function Login() {
     }, 3000);
   };
 
+  const { handleLogin, error, success, setUsername } = useContext(Logincontext);
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get("token");
 
     if (token) {
       localStorage.setItem("authtoken", token);
-      navigate("/header");
+      setUsername("Google User"); // temporary, will be replaced by fetchuser
+      navigate("/header", { replace: true });
     }
-  }, []);
+  }, [navigate, setUsername]);
 
   return (
     <div className="login-container">

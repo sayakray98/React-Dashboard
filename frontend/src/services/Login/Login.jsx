@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState,useEffect } from "react";
 import "../Login/Login.css";
 import Lottie from "lottie-react";
 import { useNavigate, Link } from "react-router-dom";

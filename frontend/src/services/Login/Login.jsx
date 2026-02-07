@@ -11,6 +11,8 @@ export default function Login() {
   const [loader, setLoader] = useState(false);
 
   const navigate = useNavigate();
+  const { handleLogin, error, success, setUsername } =
+    useContext(Logincontext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,15 +24,16 @@ export default function Login() {
     }, 3000);
   };
 
-  const { handleLogin, error, success, setUsername } = useContext(Logincontext);
-
+  // ✅ FIXED: Read token from HASH (GitHub Pages + HashRouter)
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
+    const hash = window.location.hash; // #/login?token=xxx
+    const queryString = hash.split("?")[1];
+    const params = new URLSearchParams(queryString);
     const token = params.get("token");
 
     if (token) {
       localStorage.setItem("authtoken", token);
-      setUsername("Google User"); // temporary, will be replaced by fetchuser
+      setUsername("Google User"); // temporary label
       navigate("/header", { replace: true });
     }
   }, [navigate, setUsername]);
@@ -71,17 +74,22 @@ export default function Login() {
           />
         </div>
 
-        <p style={{ fontSize: "10px", color: "#ff4343" }}>{error || success}</p>
+        <p style={{ fontSize: "10px", color: "#ff4343" }}>
+          {error || success}
+        </p>
 
         <button type="submit" className="submit-btn" disabled={loader}>
           {loader ? "Logging in..." : "Login"}
         </button>
+
         <div className="auth-divider">
           <span>or continue with</span>
         </div>
 
         <div className="social-login">
+          {/* ✅ FIXED: type="button" */}
           <button
+            type="button"
             className="social-btn google"
             onClick={() =>
               (window.location.href =
@@ -94,24 +102,9 @@ export default function Login() {
             />
             Continue with Google
           </button>
-
-          {/* <button
-            className="social-btn microsoft"
-            onClick={() =>
-              (window.location.href =
-                "https://react-dashboard-5odm.onrender.com/api/microsoft")
-            }
-          >
-            <img
-              src="https://www.svgrepo.com/show/452062/microsoft.svg"
-              alt="Microsoft"
-            />
-            Continue with Outlook
-          </button> */}
         </div>
       </form>
 
-      {/* ✅ SIGNUP LINK */}
       <div className="auth-footer">
         <p>
           Don’t have an account?{" "}

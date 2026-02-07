@@ -147,7 +147,7 @@ router.get(
     );
 
     res.redirect(
-      `https://sayakray98.github.io/login?token=${token}`
+      `https://sayakray98.github.io/React-Dashboard/#/login?token=${token}`
     );
   }
 );

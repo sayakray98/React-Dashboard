@@ -1,0 +1,117 @@
+/* Page background */
+.signup-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: radial-gradient(
+      circle at top right,
+      rgba(37, 99, 235, 0.15),
+      transparent 40%
+    ),
+    linear-gradient(135deg, #0f172a, #020617);
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+/* Card container */
+.signup-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 36px 34px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 18px;
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.25);
+  backdrop-filter: blur(10px);
+  animation: fadeUp 0.5s ease;
+}
+
+/* Title */
+.signup-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  color: #020617;
+  margin-bottom: 6px;
+}
+
+/* Subtitle */
+.signup-subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 28px;
+}
+
+/* Form spacing */
+.signup-form .MuiTextField-root {
+  margin-bottom: 18px;
+}
+
+/* Override MUI input rounding slightly */
+.signup-form .MuiOutlinedInput-root {
+  border-radius: 12px;
+}
+
+/* Focus glow (professional) */
+.signup-form .MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  border-color: #2563eb;
+  border-width: 2px;
+}
+
+/* Button styling */
+.signup-button {
+  margin-top: 10px !important;
+  padding: 12px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  border-radius: 14px !important;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+  text-transform: none !important;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+}
+
+.signup-button:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af) !important;
+  transform: translateY(-1px);
+}
+
+/* Login text */
+.signup-footer {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 14px;
+  color: #475569;
+}
+
+.signup-footer span {
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Smooth animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile optimization */
+@media (max-width: 480px) {
+  .signup-card {
+    padding: 28px 22px;
+    border-radius: 16px;
+  }
+
+  .signup-title {
+    font-size: 24px;
+  }
+}

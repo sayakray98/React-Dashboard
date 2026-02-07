@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://sayakray98.github.io/React-Dashboard/",
   "scripts": {
-   "dev": "vite",
+    "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -13,7 +13,11 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@lottiefiles/dotlottie-react": "^0.13.0",
+    "@mui/icons-material": "^7.3.7",
+    "@mui/material": "^7.3.7",
     "axios": "^1.8.1",
     "bcryptjs": "^3.0.2",
     "express-validator": "^7.2.1",

@@ -8,9 +8,6 @@ const Signup = () => {
   const navigate = useNavigate();
 
   // After successful signup
-  setTimeout(() => {
-    navigate("/login");
-  }, 1500);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -48,6 +45,10 @@ const Signup = () => {
 
       // Optional: redirect
       // navigate("/login");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
     } catch (err) {
       if (err.response?.data?.error) {
         setError(err.response.data.error);

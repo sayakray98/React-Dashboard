@@ -3,6 +3,8 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const connectToMongoose = require("./db");
 const authRoutes = require("./routes/auth");
+const passport = require("./passport");
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -23,6 +25,8 @@ app.use(
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(passport.initialize());
+
 
 // Routes
 app.use("/api", authRoutes);

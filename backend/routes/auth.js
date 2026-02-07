@@ -189,4 +189,50 @@ router.get("/search/:key", fetchuser, async (req, res) => {
   }
 });
 
+const passport = require("passport");
+const jwt = require("jsonwebtoken");
+
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+router.get(
+  "/google/callback",
+  passport.authenticate("google", { session: false }),
+  (req, res) => {
+    const token = jwt.sign(
+      { user: { id: req.user.id } },
+      process.env.JWT_TOKEN,
+      { expiresIn: "1d" }
+    );
+
+    res.redirect(
+      `https://sayakray98.github.io/login?token=${token}`
+    );
+  }
+);
+
+router.get(
+  "/microsoft",
+  passport.authenticate("microsoft", { prompt: "select_account" })
+);
+
+router.get(
+  "/microsoft/callback",
+  passport.authenticate("microsoft", { session: false }),
+  (req, res) => {
+    const token = jwt.sign(
+      { user: { id: req.user.id } },
+      process.env.JWT_TOKEN,
+      { expiresIn: "1d" }
+    );
+
+    res.redirect(
+      `https://sayakray98.github.io/login?token=${token}`
+    );
+  }
+);
+
+
 module.exports = router;

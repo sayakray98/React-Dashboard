@@ -23,6 +23,16 @@ export default function Login() {
     }, 3000);
   };
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+
+    if (token) {
+      localStorage.setItem("authtoken", token);
+      navigate("/header");
+    }
+  }, []);
+
   return (
     <div className="login-container">
       <h3 style={{ color: "white" }}>Dashboard</h3>
@@ -64,6 +74,39 @@ export default function Login() {
         <button type="submit" className="submit-btn" disabled={loader}>
           {loader ? "Logging in..." : "Login"}
         </button>
+        <div className="auth-divider">
+          <span>or continue with</span>
+        </div>
+
+        <div className="social-login">
+          <button
+            className="social-btn google"
+            onClick={() =>
+              (window.location.href =
+                "https://react-dashboard-5odm.onrender.com/api/google")
+            }
+          >
+            <img
+              src="https://www.svgrepo.com/show/475656/google-color.svg"
+              alt="Google"
+            />
+            Continue with Google
+          </button>
+
+          <button
+            className="social-btn microsoft"
+            onClick={() =>
+              (window.location.href =
+                "https://react-dashboard-5odm.onrender.com/api/microsoft")
+            }
+          >
+            <img
+              src="https://www.svgrepo.com/show/452062/microsoft.svg"
+              alt="Microsoft"
+            />
+            Continue with Outlook
+          </button>
+        </div>
       </form>
 
       {/* ✅ SIGNUP LINK */}

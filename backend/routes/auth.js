@@ -171,22 +171,18 @@ passport.use(
 /* ================= MICROSOFT LOGIN ================= */
 
 router.get(
-  "/microsoft",
-  passport.authenticate("microsoft", { prompt: "select_account" })
-);
-
-router.get(
-  "/microsoft/callback",
-  passport.authenticate("microsoft", { session: false }),
+  "/google/callback",
+  passport.authenticate("google", { session: false }),
   (req, res) => {
     const token = jwt.sign(
       { user: { id: req.user.id } },
-      JWT_TOKEN,
+      process.env.JWT_TOKEN,
       { expiresIn: "1d" }
     );
 
+    // ✅ GitHub Pages + HashRouter redirect
     res.redirect(
-      `https://sayakray98.github.io/login?token=${token}`
+      `https://sayakray98.github.io/React-Dashboard/#/login?token=${token}`
     );
   }
 );

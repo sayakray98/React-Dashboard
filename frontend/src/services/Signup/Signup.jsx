@@ -146,7 +146,7 @@ const Signup = () => {
               Continue with Google
             </button>
 
-            <button
+            {/* <button
               className="social-btn microsoft"
               onClick={() =>
                 (window.location.href =
@@ -158,7 +158,7 @@ const Signup = () => {
                 alt="Microsoft"
               />
               Continue with Outlook
-            </button>
+            </button> */}
           </div>
         </form>
 

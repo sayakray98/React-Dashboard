@@ -93,7 +93,7 @@ export default function Login() {
             Continue with Google
           </button>
 
-          <button
+          {/* <button
             className="social-btn microsoft"
             onClick={() =>
               (window.location.href =
@@ -105,7 +105,7 @@ export default function Login() {
               alt="Microsoft"
             />
             Continue with Outlook
-          </button>
+          </button> */}
         </div>
       </form>
 

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Create an Axios instance
 const api = axios.create({
-    baseURL: "http://localhost:3000/api", // Your base API URL
+    baseURL: "https://react-dashboard-5odm.onrender.com/api", // Your base API URL
     timeout: 1000, // Optional: Set a timeout for requests
     headers: {
         'Content-Type': 'application/json', // Optional: Set default headers

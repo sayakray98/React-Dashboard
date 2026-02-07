@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const passport = require("./passport"); // 👈 MUST import passport
 const authRoutes = require("./routes/auth");
-const authRoutes = require("./routes/auth");
 
 const app = express();
 

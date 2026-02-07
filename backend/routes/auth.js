@@ -136,21 +136,37 @@ router.get(
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
-router.get(
-  "/google/callback",
-  passport.authenticate("google", { session: false }),
-  (req, res) => {
-    const token = jwt.sign(
-      { user: { id: req.user.id } },
-      JWT_TOKEN,
-      { expiresIn: "1d" }
-    );
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 
-    res.redirect(
-      `https://sayakray98.github.io/React-Dashboard/#/login?token=${token}`
-    );
-  }
+      // ✅ MUST be absolute in production
+      callbackURL:
+        "https://react-dashboard-5odm.onrender.com/api/google/callback",
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const email = profile.emails[0].value.toLowerCase();
+
+        let user = await User.findOne({ email });
+        if (!user) {
+          user = await User.create({
+            name: profile.displayName,
+            email,
+            password: null,
+          });
+        }
+
+        done(null, user);
+      } catch (err) {
+        done(err, null);
+      }
+    }
+  )
 );
+
 
 /* ================= MICROSOFT LOGIN ================= */
 

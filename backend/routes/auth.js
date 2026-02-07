@@ -3,121 +3,84 @@ const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { JWT_TOKEN } = require("./config"); // ✅ FIXED PATH
-const { body, validationResult } = require("express-validator");
+const { JWT_TOKEN } = require("./config");
+const { body } = require("express-validator");
 const fetchuser = require("../middleware/fetchuser");
 const passport = require("passport");
 
 /* ================= SIGNUP ================= */
 
-router.post(
-  "/createuser",
-  [
-    body("name").isLength({ min: 6 }),
-    body("email").isEmail(),
-    body("password").isLength({ min: 6 }),
-    body("cnfpassword").isLength({ min: 6 }),
-  ],
-  async (req, res) => {
-    try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
+router.post("/createuser", async (req, res) => {
+  try {
+    const { name, email, password, phone } = req.body;
 
-      // ✅ Check by name OR email
-      let user = await User.findOne({
-        $or: [
-          { name: req.body.name },
-          { email: req.body.email.toLowerCase() }
-        ],
-      });
+    const existingUser = await User.findOne({
+      $or: [{ name }, { email: email.toLowerCase() }],
+    });
 
-      if (user) {
-        return res.status(400).json({
-          error: "User already exists with this name or email",
-        });
-      }
-
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
-      const userdata = new User({
-        name: req.body.name,
-        email: req.body.email.toLowerCase(),
-        phone: req.body.phone,
-        password: hashedPassword,
-        cnfpassword: hashedPassword,
-      });
-
-      await userdata.save();
-
-      const token = jwt.sign(
-        { user: { id: userdata.id } },
-        JWT_TOKEN,
-        { expiresIn: "1d" }
-      );
-
-      res.json({ authtoken: token });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Internal Server Error" });
+    if (existingUser) {
+      return res.status(400).json({ error: "User already exists" });
     }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const user = await User.create({
+      name,
+      email: email.toLowerCase(),
+      phone,
+      password: hashedPassword,
+    });
+
+    const token = jwt.sign({ user: { id: user.id } }, JWT_TOKEN, {
+      expiresIn: "1d",
+    });
+
+    res.json({ authtoken: token });
+  } catch (err) {
+    res.status(500).json({ error: "Internal Server Error" });
   }
-);
+});
 
 /* ================= LOGIN ================= */
 
-router.post(
-  "/login",
-  [body("name").notEmpty(), body("password").isLength({ min: 6 })],
-  async (req, res) => {
-    try {
-      const { name, password } = req.body;
+router.post("/login", async (req, res) => {
+  try {
+    const { name, password } = req.body;
 
-      const user = await User.findOne({
-        name: { $regex: `^${name}$`, $options: "i" },
-      });
+    const user = await User.findOne({
+      name: { $regex: `^${name}$`, $options: "i" },
+    });
 
-      if (!user) {
-        return res.status(400).json({ error: "No user exists" });
-      }
-
-      // ✅ Block Google users from password login
-      if (!user.password) {
-        return res.status(400).json({
-          error: "Please login using Google or Microsoft",
-        });
-      }
-
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        return res.status(400).json({
-          error: "Password is incorrect",
-        });
-      }
-
-      const token = jwt.sign(
-        { user: { id: user.id } },
-        JWT_TOKEN,
-        { expiresIn: "1d" }
-      );
-
-      res.json({ authtoken: token, name: user.name });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Internal Server Error" });
+    if (!user) {
+      return res.status(400).json({ error: "No user exists" });
     }
-  }
-);
 
-/* ================= GET USER ================= */
+    if (!user.password) {
+      return res
+        .status(400)
+        .json({ error: "Please login using Google" });
+    }
+
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      return res.status(400).json({ error: "Invalid password" });
+    }
+
+    const token = jwt.sign({ user: { id: user.id } }, JWT_TOKEN, {
+      expiresIn: "1d",
+    });
+
+    res.json({ authtoken: token, name: user.name });
+  } catch (err) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 router.get("/getuser", fetchuser, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select(
-      "-password -cnfpassword"
-    );
+    let userid = req.user.id;
+    let user = await User.findById(userid).select("-password -cnfpassword");
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -125,50 +88,80 @@ router.get("/getuser", fetchuser, async (req, res) => {
 
     res.json(user);
   } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+router.put("/update/:id", fetchuser, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name } = req.body;
+    const newdata = {};
+    if (name) {
+      newdata.name = name;
+    }
+    if (!req.params) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    let dataupadte = await User.findById(req.params.id).select(
+      "-password -cnfpassword",
+    );
+
+    dataupadte = await User.findByIdAndUpdate(
+      id,
+      { $set: newdata },
+      { new: true },
+    ).select("-password -cnfpassword");
+
+    res.json(dataupadte);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+router.delete("/delete/:id", fetchuser, async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!req.params) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    let Datadelete = await User.findById(req.params.id);
+
+    Datadelete = await User.findByIdAndDelete(id);
+
+    res.status(200).json({ Datadelete: "Deleted Data !" });
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-/* ================= GOOGLE LOGIN ================= */
+router.get("/search/:key", fetchuser, async (req, res) => {
+  try {
+    const key = req.params.key;
 
+    let search = await User.find({
+      $or: [{ name: { $regex: key, $options: "i" } }],
+    });
+
+    if (search.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json({ search });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+/* ================= GOOGLE OAUTH ================= */
 router.get(
   "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
-
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-
-      // ✅ MUST be absolute in production
-      callbackURL:
-        "https://react-dashboard-5odm.onrender.com/api/google/callback",
-    },
-    async (accessToken, refreshToken, profile, done) => {
-      try {
-        const email = profile.emails[0].value.toLowerCase();
-
-        let user = await User.findOne({ email });
-        if (!user) {
-          user = await User.create({
-            name: profile.displayName,
-            email,
-            password: null,
-          });
-        }
-
-        done(null, user);
-      } catch (err) {
-        done(err, null);
-      }
-    }
-  )
-);
-
-
-/* ================= MICROSOFT LOGIN ================= */
 
 router.get(
   "/google/callback",
@@ -180,9 +173,8 @@ router.get(
       { expiresIn: "1d" }
     );
 
-    // ✅ GitHub Pages + HashRouter redirect
     res.redirect(
-      `https://sayakray98.github.io/React-Dashboard/#/login?token=${token}`
+      "https://sayakray98.github.io/React-Dashboard/#/login?token=" + token
     );
   }
 );

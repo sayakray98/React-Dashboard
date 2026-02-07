@@ -1,32 +1,38 @@
-const express = require('express');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const connectToMongoose = require('./db');
-const authRoutes = require('./routes/auth');
+const express = require("express");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const connectToMongoose = require("./db");
+const authRoutes = require("./routes/auth");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-// Connect to MongoDB
+// Connect DB
 connectToMongoose();
 
 // Middlewares
-app.use(cors({
-    // your React app URL
-    credentials: true
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://sayakray98.github.io",
+    ],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 app.use(cookieParser());
 
 // Routes
-app.use('/api', authRoutes);
+app.use("/api", authRoutes);
 
-// Test route
-app.get('/', (req, res) => {
-    res.send('Backend running!');
+// Health check
+app.get("/", (req, res) => {
+  res.send("Backend running!");
 });
 
 // Start server
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server running on port ${port}`);
 });
